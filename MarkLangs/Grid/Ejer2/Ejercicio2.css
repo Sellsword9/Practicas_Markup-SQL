@@ -1,0 +1,44 @@
+.container {
+    display: grid;
+    grid-template-columns:repeat(5, 20%);
+    grid-template-rows: repeat(4, 100px);
+    margin: 15px auto;
+    width: 80%;
+    grid-template-areas: "cab  cab  cab  cab  cab"
+                         "side main main main sider"
+                         "side main main main sider"
+                         "feet feet feet feet feet"; 
+    }
+    .container > div {
+    border: 2px solid black;
+    }
+    .feet
+    {
+        background-color:rgb(13, 204, 45);
+        color:rgb(13, 204, 45);
+        grid-area: feet;   
+    }
+    .main
+    {
+        background-color:yellow;
+        color: yellow;
+        grid-area: main;
+    }
+    .cab
+    {
+        background-color:rgb(16, 34, 197);
+        color: rgb(16, 34, 197);
+        grid-area: cab;
+    }
+    .side
+    {
+        background-color: red;
+        color: red;
+        grid-area: side;
+    }
+    .sider
+    {
+        background-color: red;
+        color: red;
+        grid-area: sider;
+    }

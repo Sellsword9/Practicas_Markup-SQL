@@ -1,0 +1,144 @@
+.container 
+{
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: auto 61% 26% 13% auto;
+    margin: 15px auto;
+    width: 100%;
+    grid-template-areas: "header  header"
+                         "texto   texto"
+                         "sidebar sidebar"
+                         "wid1    wid2"
+                         "pie     pie";
+}
+.container > div {
+    border: 2px solid black;
+}
+.header 
+{
+    color:white;
+    background-color: darkblue;
+    padding: 3%;
+    grid-area: header;
+}
+.texto
+{
+    grid-area: texto;
+    border: none !important;
+}
+.texto > p{
+    letter-spacing: 210%;
+    border: none;
+}
+.sidebar
+{
+    background-color: orange;
+    padding: 3%;
+    grid-area: sidebar;
+    margin: 0.2cm;
+}
+.wid1
+{
+    background-color: #2bf;
+    color:white;
+    padding: 4%;
+    grid-area: wid1;
+    margin: 0.2cm;
+}
+.wid2
+{
+    background-color: #2bf;
+    color:white;
+    text-align: center;
+    padding: 4%;
+    grid-area: wid2;
+    margin: 0.2cm;
+}
+.pie
+{
+    background-color: darkblue;
+    color: white;
+    grid-area: pie;
+    margin: 0.2cm;
+}
+@media only screen and (min-width: 576px)
+{
+    .container 
+{
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: auto 61% 20% 19% auto;
+    margin: 15px auto;
+    width: 100%;
+    grid-template-areas: "header  header"
+                         "texto   texto"
+                         "sidebar sidebar"
+                         "wid1    wid2"
+                         "pie     pie";
+}
+.container > div {
+    border: 2px solid black;
+}
+.header 
+{
+    color:white;
+    background-color: darkblue;
+    padding: 3%;
+    grid-area: header;
+}
+.texto
+{
+    grid-area: texto;
+    border: none !important;
+}
+.texto > p{
+    letter-spacing: 210%;
+    border: none;
+}
+.sidebar
+{
+    background-color: orange;
+    padding: 3%;
+    grid-area: sidebar;
+    margin: 0.2cm;
+}
+.wid1
+{
+    background-color: #2bf;
+    color:white;
+    padding: 4%;
+    grid-area: wid1;
+    margin: 0.2cm;
+}
+.wid2
+{
+    background-color: #2bf;
+    color:white;
+    text-align: center;
+    padding: 4%;
+    grid-area: wid2;
+    margin: 0.2cm;
+}
+.pie
+{
+    background-color: darkblue;
+    color: white;
+    grid-area: pie;
+    margin: 0.2cm;
+}
+}
+@media only screen and (min-width: 1000px)
+{
+    .container 
+    {
+        display: grid;
+        grid-template-columns: 37.5% 37.5% 25%;
+        grid-template-rows: 11vh 56vh 22vh 11vh;
+        margin: 15px auto;
+        width: 100%;
+        grid-template-areas: "header  header  header"
+                             "texto   texto   sidebar"
+                             "wid1    wid2    sidebar"
+                             "pie     pie     pie";
+    }
+}

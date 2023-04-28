@@ -1,0 +1,60 @@
+.container {
+    display: grid;
+    grid-template-columns: 32% 48% 15% 15%;
+    grid-template-rows: 150px 150px 150px;
+    margin: 15px auto;
+    width: 80%;
+    grid-template-areas: "tree  city   fog  fog"
+                         "tree  guitar blu  forest"
+                         "eagle guitar rok  rok ";
+    }
+    .container > div {
+    border: 2px solid black;
+    }
+    .tree
+    {
+        background-image:url(../media/tree.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        grid-area: tree;
+    }
+    .eagle
+    {
+        background-image:url(../media/eagle.png);
+        grid-area: eagle;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .guitar
+    {
+        background-image:url(../media/guitar.png);
+        grid-area: guitar;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .rok
+    {
+        background-image:url(../media/rocks.png);
+        grid-area: rok;
+    }
+    .fog
+    {
+        background-image: url(../media/fog.png);
+        grid-area: fog;
+    }
+    .blu
+    {
+        background-image: url(../media/blu.png);
+        grid-area: blu;
+    }
+    .forest
+    {
+        background-image: url(../media/forest.png);
+        grid-area: forest;
+    }
+    .city
+    {
+        background-image: url(../media/city.png);
+        grid-area: city;
+    }
+    

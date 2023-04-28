@@ -1,0 +1,138 @@
+.container {
+    display: grid;
+    grid-template-columns:repeat(1, 100%);
+    grid-template-rows: 150px 150px 150px 20px 20px;
+    margin: 15px auto;
+    width: 100%;
+    grid-template-areas: "red"
+                         "green"
+                         "yellow"
+                         "blue"
+                         "orange"; 
+    }
+    .container > div {
+    border: 2px solid black;
+    }
+    .red
+    {
+        background-color:red;
+        color:red;
+        grid-area: red;   
+    }
+    .yellow
+    {
+        background-color:yellow;
+        color: yellow;
+        grid-area: yellow;
+    }
+    .blue
+    {
+        background-color:rgb(16, 34, 197);
+        color: rgb(16, 34, 197);
+        grid-area: blue;
+    }
+    .orange
+    {
+        background-color: orange;
+        color: orange;
+        grid-area: orange;
+    }
+    .green
+    {
+        background-color: green;
+        color: green;
+        grid-area: green;
+    }
+@media only screen and (min-width: 576px) 
+{
+    .container {
+        display: grid;
+        grid-template-columns:repeat(2, 50%);
+        grid-template-rows: 100px 200px 200px 100px;
+        margin: 15px auto;
+        width: 100%;
+        grid-template-areas: "red red"
+                             "green yellow"
+                             "blue blue"
+                             "orange orange"; 
+        }
+        .container > div {
+        border: 2px solid black;
+        }
+        .red
+        {
+            background-color:red;
+            color:red;
+            grid-area: red;   
+        }
+        .yellow
+        {
+            background-color:yellow;
+            color: yellow;
+            grid-area: yellow;
+        }
+        .blue
+        {
+            background-color:rgb(16, 34, 197);
+            color: rgb(16, 34, 197);
+            grid-area: blue;
+        }
+        .orange
+        {
+            background-color: orange;
+            color: orange;
+            grid-area: orange;
+        }
+        .green
+        {
+            background-color: green;
+            color: green;
+            grid-area: green;
+        }
+}
+@media only screen and (min-width: 1000px) 
+{
+    .container {
+        display: grid;
+        grid-template-columns:repeat(3, 33.3%);
+        grid-template-rows: 200px 200px 200px;
+        margin: 15px auto;
+        width: 100%;
+        grid-template-areas: "red red red"
+                             "green yellow blue"
+                             "orange orange orange"; 
+        }
+        .container > div {
+        border: 2px solid black;
+        }
+        .red
+        {
+            background-color:red;
+            color:red;
+            grid-area: red;   
+        }
+        .yellow
+        {
+            background-color:yellow;
+            color: yellow;
+            grid-area: yellow;
+        }
+        .blue
+        {
+            background-color:rgb(16, 34, 197);
+            color: rgb(16, 34, 197);
+            grid-area: blue;
+        }
+        .orange
+        {
+            background-color: orange;
+            color: orange;
+            grid-area: orange;
+        }
+        .green
+        {
+            background-color: green;
+            color: green;
+            grid-area: green;
+        }
+}
