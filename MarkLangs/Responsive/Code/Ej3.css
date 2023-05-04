@@ -133,12 +133,16 @@
     {
         display: grid;
         grid-template-columns: 37.5% 37.5% 25%;
-        grid-template-rows: 11vh 56vh 22vh 11vh;
+        grid-template-rows: 12vh 56vh 22vh 11vh;
         margin: 15px auto;
         width: 100%;
         grid-template-areas: "header  header  header"
                              "texto   texto   sidebar"
                              "wid1    wid2    sidebar"
                              "pie     pie     pie";
+    }
+    .pie
+    {
+        margin: 0cm !important;
     }
 }
