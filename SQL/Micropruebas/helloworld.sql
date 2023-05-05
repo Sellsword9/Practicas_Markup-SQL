@@ -1,0 +1,10 @@
+DELIMITER $$
+CREATE OR REPLACE FUNCTION holaMundo() RETURNS VARCHAR(30)
+BEGIN
+DECLARE salida VARCHAR(13);
+SET salida='Hola mundo 33';
+RETURN salida;
+END; $$
+DELIMITER ;
+
+SELECT holaMundo() AS Mensaje;
