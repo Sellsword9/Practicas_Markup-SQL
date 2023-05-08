@@ -90,11 +90,11 @@ INSERT INTO participa VALUES
 ('USA001','SEG1314',3,600.00), ('FRA001','SEG1314',4,570.00), ('USA003','POO1314',1,600.00);
 
 INSERT INTO asistente VALUES ('AS0001', 'Mario', 'Céspedes', 'Hermida', 'H', '1970-11-16', 'BK Programación'),
-('AS0002', 'Carmen', 'Gutiérrez', 'Sevilla', 'M', '1968-02-20', 'BK Programación'  ) , ('AS0003', 'Felipe', 'Martín', 'Comillas', 'H', '1975-11-06', 'ProgConsulting')
-('AS0004', 'Lourdes', 'Soriano', 'López', 'M', '1982-07-30', NULL                  ) , ('AS0005', 'Inmaculada', 'Herrero', 'Puig', 'M', '1978-09-13', 'BigSoft')
-('AS0006', 'Lucía', 'Díaz', 'Martínez', 'M', '1973-08-25', 'BigSoft'               ) , ('AS0007', 'Fermín', 'Gutiérrez', 'Pérez', 'H', '1969-03-03', 'ProgConsulting')
-('AS0008', 'José Enrique', 'Martos', 'Martos', 'H', '1982-10-20', 'BK Programación') , ('AS0009', 'José Ramón', 'Gómez', 'Pérez', 'H', '1973-01-21', 'ProgConsulting')
-('AS0010', 'Mercedes', 'Bosh', 'Toral', 'M', '1980-05-05', 'BK Programación'       ) , ('AS0011', 'María José', 'Vázquez', 'Soriano', 'M', '1990-03-19', NULL)
+('AS0002', 'Carmen', 'Gutiérrez', 'Sevilla', 'M', '1968-02-20', 'BK Programación'  ) , ('AS0003', 'Felipe', 'Martín', 'Comillas', 'H', '1975-11-06', 'ProgConsulting'),
+('AS0004', 'Lourdes', 'Soriano', 'López', 'M', '1982-07-30', NULL                  ) , ('AS0005', 'Inmaculada', 'Herrero', 'Puig', 'M', '1978-09-13', 'BigSoft'),
+('AS0006', 'Lucía', 'Díaz', 'Martínez', 'M', '1973-08-25', 'BigSoft'               ) , ('AS0007', 'Fermín', 'Gutiérrez', 'Pérez', 'H', '1969-03-03', 'ProgConsulting'),
+('AS0008', 'José Enrique', 'Martos', 'Martos', 'H', '1982-10-20', 'BK Programación') , ('AS0009', 'José Ramón', 'Gómez', 'Pérez', 'H', '1973-01-21', 'ProgConsulting'),
+('AS0010', 'Mercedes', 'Bosh', 'Toral', 'M', '1980-05-05', 'BK Programación'       ) , ('AS0011', 'María José', 'Vázquez', 'Soriano', 'M', '1990-03-19', NULL),
 ('AS0012', 'José Luis', 'Jiménez', 'Molina', 'H', '1991-10-01', 'BigSoft'          ) , ('AS0013', 'Manuel', 'Pérez', 'Martínez', 'H', '1987-11-30', NULL);
 
 INSERT INTO asiste VALUES ('AS0013', 'BDO1314'), ('AS0009', 'BDO1314'), ('AS0006', 'BDO1314'),
