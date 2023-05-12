@@ -19,6 +19,28 @@ DROP PROCEDURE IF EXISTS getConferencias;
 -- Ej 9
 -- No entiendo el enunciado
 set @sentencia = select * from conferencia limit ?; PREPARE sente from sentencia; EXECUTE sente using 2; --????
+-- Ej 10
+drop procedure if exists getConferenciasSala;
+delimiter $$
+create procedure getConferenciasSala(in s varchar(50))
+begin
+    if NOT EXISTS (SELECT nombreSala FROM sala WHERE nombreSala = s)
+    then
+        select 'LA SALA NO EXISTE' as Resultado;
+    else
+        if not exists (select * from conferencia where nombreSala = s) 
+		  then
+            select 'SIN CONFERENCIAS' as Resultado;
+        else
+        select tema, precio, turno from conferencia where nombreSala = s;
+        end if;
+    end if;
+end $$
+delimiter ;
+call getConferenciasSala('Apolo');
+call getConferenciasSala('Apolllo');
+call getConferenciasSala('Hermes');
+DROP PROCEDURE getConferenciasSala;
 -- Ej 11
 DROP PROCEDURE if EXISTS howManyConferencias;
 DELIMITER $$
