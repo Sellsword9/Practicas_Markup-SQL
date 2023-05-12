@@ -12,3 +12,4 @@ Delimiter ;
 
 Call getConferencias('Luisa', 'Soriano', 'López');
 -- Ej 2
+-- TODO
