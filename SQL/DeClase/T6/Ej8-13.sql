@@ -1,3 +1,4 @@
+-- Ej 8
 DROP PROCEDURE if EXISTS getConferencias;
 delimiter $$
 CREATE PROCEDURE getConferencias(IN n VARCHAR(50), IN a1 VARCHAR(50), IN a2 VARCHAR(50))
@@ -14,3 +15,6 @@ SET @ap1 = 'Soriano';
 SET @ap2 = 'López';
 EXECUTE sentPreparada USING @nombre, @ap1, @ap2;
 DEALLOCATE PREPARE sentPreparada;
+-- Ej 9
+-- No entiendo el enunciado
+set @sentencia = select * from conferencia limit ?; PREPARE sente from sentencia; EXECUTE sente using 2; --????
