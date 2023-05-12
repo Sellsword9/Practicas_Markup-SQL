@@ -62,3 +62,20 @@ SET @dia = DATE('2013-10-3');
 EXECUTE sentPreparada USING @dia;
 
 DEALLOCATE PREPARE sentPreparada;
+-- Ej 12
+DROP PROCEDURE if EXISTS howManySalas;
+DELIMITER $$
+CREATE PROCEDURE howManySalas(IN cap INT)
+BEGIN
+    DECLARE c_count INT;
+    SELECT COUNT(*) INTO c_count FROM sala WHERE capacidad > cap;
+    if c_count = 0 or c_count is null then
+        select -1 'NumeroSalas', 'SIN SALAS';
+    else
+    SELECT c_count AS 'NumeroSalas', nombreSala AS 'Salas con capacidad mayor' FROM sala WHERE capacidad > cap;
+    end if;
+END $$
+call howManySalas(100);
+call howManySalas(900);
+call howManySalas(1);
+call howManySalas(100000);
