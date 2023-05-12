@@ -18,7 +18,7 @@ DEALLOCATE PREPARE sentPreparada;
 DROP PROCEDURE IF EXISTS getConferencias;
 -- Ej 9
 -- No entiendo el enunciado
-set @sentencia = select * from conferencia limit ?; PREPARE sente from sentencia; EXECUTE sente using 2; --????
+set @sentencia = select * from conferencia limit ?; PREPARE sente from sentencia; EXECUTE sente using 2; -- ????
 -- Ej 10
 drop procedure if exists getConferenciasSala;
 delimiter $$
