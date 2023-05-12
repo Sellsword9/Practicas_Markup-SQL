@@ -19,8 +19,8 @@
     }
     .main
     {
-        background-color:pink;
-        color:pink;
+        background-color: wheat;
+        color:wheat;
         grid-area: main;
     }
     .cab
