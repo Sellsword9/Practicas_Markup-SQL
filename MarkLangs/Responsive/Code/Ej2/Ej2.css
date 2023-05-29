@@ -1,0 +1,42 @@
+/* Estilo pequeño */
+.container
+{
+    display: grid;
+    grid-template-areas:
+    "nav"
+    "texto"
+    "galeria"
+    "novedades";
+}
+main{
+    grid-area: texto;
+}
+nav{
+    grid-area: nav;
+}
+.galeria {
+    grid-area: galeria;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+.galeria > img {
+    width: 100%;
+    height: auto;
+  }
+.galeria > .img9
+{
+    display: none;
+}
+
+article{
+    grid-area: novedades;
+}
+  
+
+@media only screen and (min-width: 577px) {
+    
+  }
+@media only screen and (min-width: 992px) {
+   
+  }
