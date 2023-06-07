@@ -68,3 +68,12 @@ LIMIT 20;
 Hay productos con el mismo nombre, pero con distinto código de producto.
 Por eso el group by entorno al nombre en lugar del código
 */
+-- 5
+/*
+Sin hacer uso de subconsultas devolver un listado que muestre solamente
+los empleados que no tienen un cliente asociado.
+*/
+SELECT nombre, CONCAT(apellido1, IFNULL(CONCAT(" ", apellido2), "")) AS 'Apellidos'
+FROM empleado
+left JOIN cliente ON empleado.id_empleado = cliente.id_empleado_rep_ventas
+WHERE cliente.id_cliente IS NULL;
