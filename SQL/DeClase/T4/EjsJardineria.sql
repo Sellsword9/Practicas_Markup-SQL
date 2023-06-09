@@ -77,3 +77,123 @@ SELECT nombre, CONCAT(apellido1, IFNULL(CONCAT(" ", apellido2), "")) AS 'Apellid
 FROM empleado
 left JOIN cliente ON empleado.id_empleado = cliente.id_empleado_rep_ventas
 WHERE cliente.id_cliente IS NULL;
+-- 6
+/*
+Devolver el nombre del cliente con menor límite de crédito de la región de
+“Barcelona” (no se puede utilizar LIMIT ni ORDER BY en la sentencia SELECT).
+*/
+select nombre_cliente
+from cliente
+WHERE limite_credito = 
+      (SELECT MIN(limite_credito)
+       FROM cliente
+	WHERE region = 'Barcelona')
+AND
+region = 'Barcelona'
+-- 7
+/*
+Devolver el nombre del producto del que se han vendido más unidades
+(tener en cuenta que se tendrá que calcular cuál es el número total de
+unidades que se han vendido de cada producto a partir de los datos de la
+tabla detalle_pedido).
+*/
+SELECT producto.nombre
+FROM detalle_pedido
+JOIN producto ON detalle_pedido.codigo_producto = producto.codigo_producto
+GROUP BY detalle_pedido.codigo_producto
+ORDER BY SUM(cantidad) DESC
+LIMIT 1;
+-- 8
+/*
+Devolver un listado con los nombres de los clientes que han realizado algún
+pedido pero no han realizado ningún pago. Ordenar el resultado por el nombre
+de cliente de forma ascendente.
+*/
+SELECT nombre_cliente
+FROM cliente
+WHERE 
+id_cliente NOT IN (SELECT id_cliente FROM pago) -- No ha pagado
+AND
+id_cliente IN (SELECT id_cliente FROM pedido) -- Pero ha pedido
+-- 9
+/*
+Obtener el total facturado por producto (únicamente se deben
+tener en cuenta los pedidos realizados en el año 2009 y que se
+encuentren en estado de entregados para el cálculo) del cliente
+que tiene menor límite de crédito.
+*/
+SELECT precio_unidad * sum(cantidad) AS 'Facturado',
+producto.nombre
+FROM detalle_pedido
+JOIN producto ON detalle_pedido.codigo_producto = producto.codigo_producto
+JOIN pedido ON detalle_pedido.codigo_pedido = pedido.codigo_pedido
+WHERE pedido.id_cliente IN
+ (SELECT id_cliente
+	FROM cliente 
+	WHERE limite_credito =
+	(	SELECT Min(limite_credito)
+		FROM cliente))
+AND year(pedido.fecha_pedido) = 2009
+AND pedido.estado = 'Entregado'
+GROUP BY detalle_pedido.codigo_producto
+ORDER BY nombre;
+-- 10
+/*
+Obtener los productos de la gama “Ornamentales” que tengan un precio de
+venta mayor o igual al de todos los productos de la gama “Frutales” (no se
+puede utilizar las funciones MAX y MIN, ni la cláusula ORDER BY).
+*/
+select nombre
+from producto
+where gama = 'Ornamentales'
+AND precio_venta >= ALL 
+(SELECT precio_venta
+ FROM producto
+ WHERE gama = 'Frutales')
+GROUP BY producto.nombre; --Hay nombres repetidos
+-- 11
+/*
+Obtener el nombre de los productos con mayor stock que compra un cliente
+cuyo representante de ventas trabaje en la oficina de la ciudad de Madrid.
+*/
+select producto.nombre, cantidad_en_stock
+from producto
+inner JOIN detalle_pedido on producto.codigo_producto = detalle_pedido.codigo_producto
+inner JOIN pedido ON detalle_pedido.codigo_pedido = pedido.codigo_pedido
+inner join cliente ON pedido.id_cliente = cliente.id_cliente
+inner join empleado ON cliente.id_empleado_rep_ventas = empleado.id_empleado
+inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina
+where cantidad_en_stock >= ALL (
+       SELECT cantidad_en_stock
+       FROM producto
+       inner JOIN detalle_pedido on producto.codigo_producto = detalle_pedido.codigo_producto
+       inner JOIN pedido ON detalle_pedido.codigo_pedido = pedido.codigo_pedido
+       inner join cliente ON pedido.id_cliente = cliente.id_cliente
+       inner join empleado ON cliente.id_empleado_rep_ventas = empleado.id_empleado
+       inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina
+       WHERE oficina.ciudad = 'Madrid') 
+       and oficina.ciudad = 'Madrid';
+-- 12
+/*
+Devolver las oficinas donde no trabajan ninguno de los empleados que
+hayan sido los representantes de ventas de algún cliente que haya realizado
+la compra de algún producto de la gama Frutales.
+*/
+SELECT codigo_oficina, ciudad
+FROM oficina
+WHERE oficina.codigo_oficina NOT IN(
+	SELECT codigo_oficina
+   FROM empleado
+   WHERE id_empleado IN(
+   	SELECT id_empleado_rep_ventas
+   	FROM cliente
+   	WHERE id_cliente IN(
+   		SELECT id_cliente
+   		FROM pedido
+   		WHERE codigo_pedido IN(
+   			SELECT codigo_pedido
+   			FROM detalle_pedido
+   			WHERE codigo_producto IN(
+   				SELECT codigo_producto
+   				FROM producto
+   				WHERE gama = 'Frutales')))));
