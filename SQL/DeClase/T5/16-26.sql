@@ -49,3 +49,4 @@ pelicula in
     (select pelicula from pelicula where nombre like '%frozen%')
 and
 estado = "ESTROPEADA";
+-- Ej 25
