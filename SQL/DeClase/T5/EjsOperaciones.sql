@@ -31,6 +31,7 @@ VALUES
 INSERT INTO cliente (id_cliente, nombre_cliente, telefono, fax, linea_direccion1, ciudad, id_empleado_rep_ventas)
 VALUES 
 (41, 'Cliente Vicente', '666888666', '666', 'Calle ejemplo', 'Granada', 38);
+
 -- Ej 3
 /*
 Insertar un pedido para cada uno de los clientes creados en el ejercicio anterior. Cada
@@ -72,3 +73,43 @@ VALUES
 INSERT INTO detalle_pedido (codigo_pedido, codigo_producto, cantidad, precio_unidad, numero_linea)
 VALUES
 (131, 'OR-127', 45, 4.0, 1);
+
+-- Ej 8
+/*
+Reducir en un 20% el precio de todos los productos que no tengan
+pedidos
+*/
+UPDATE producto
+set precio = precio * 0.8
+where codigo_producto not in (select codigo_producto from detalle_pedido);
+-- Ej 10
+/*
+Borrar los pagos del cliente con menor límite de crédito. ¿Se puede?
+*/
+DELETE FROM pago 
+WHERE id_cliente IN
+    (SELECT id_cliente FROM cliente
+    WHERE limite_credito = (SELECT min(limite_credito) FROM cliente));
+-- Sí que se puede borrar. 
+-- Ej 11
+/*
+Añadir un campo numérico llamado IVA a la tabla detalle_pedido. Establecer el valor de ese
+campo a 18 para aquellos registros cuyo pedido tenga una fecha de pedido anterior al 1 de
+septiembre de 2012. A continuación actualizar el resto de pedidos estableciendo el IVA al
+21 (proponer y ejecutar la sentencia aunque no haya registros que cumplan la condición).
+*/
+ALTER TABLE detalle_pedido
+ADD COLUMN IVA decimal(4,2) default 0;
+
+UPDATE detalle_pedido
+SET IVA = 18.00
+WHERE codigo_pedido IN
+ (SELECT pedido.codigo_pedido
+  FROM pedido WHERE
+  pedido.fecha_pedido < '2012-09-01');
+
+UPDATE detalle_pedido
+SET IVA = 21.00
+WHERE codigo_pedido NOT IN
+    (SELECT pedido.codigo_pedido FROM pedido
+    WHERE pedido.fecha_pedido < '2012-09-01');
