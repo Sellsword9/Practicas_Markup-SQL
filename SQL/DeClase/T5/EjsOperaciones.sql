@@ -113,3 +113,24 @@ SET IVA = 21.00
 WHERE codigo_pedido NOT IN
     (SELECT pedido.codigo_pedido FROM pedido
     WHERE pedido.fecha_pedido < '2012-09-01');
+-- 13
+/*
+Establecer a 0 el límite de crédito del cliente que menos unidades pedidas tenga (en total
+de todos sus pedidos) del producto 11679
+*/
+UPDATE cliente 
+SET limite_credito = 0
+WHERE id_cliente IN (
+     SELECT id_cliente FROM pedido
+     JOIN detalle_pedido ON pedido.codigo_pedido = detalle_pedido.codigo_pedido
+	  where codigo_producto = '11679' 
+	  GROUP BY id_cliente
+	  -- El having es complejo, pero sirve para evitar usar LIMIT, que no está soportado en subconsultas.
+	  -- Usarlo produce este error:
+	  -- Error de SQL (1235): This version of MariaDB doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'
+	  HAVING SUM(cantidad) <= ALL (SELECT SUM(cantidad) FROM pedido
+                             JOIN detalle_pedido ON pedido.codigo_pedido = detalle_pedido.codigo_pedido
+                             WHERE codigo_producto = '11679'
+                             GROUP BY id_cliente, pedido.codigo_pedido)
+	  ORDER BY SUM(cantidad) ASC
+	   );
