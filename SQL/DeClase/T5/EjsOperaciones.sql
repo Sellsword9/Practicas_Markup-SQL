@@ -67,6 +67,7 @@ INSERT INTO pedido (id_pedido, fecha_pedido, fecha_esperada, estado, id_cliente)
 VALUES
 (131, '2023-06-15', '2023-06-19', 'Pendiente', 41);
     -- Detalles pedido 3
+
 INSERT INTO detalle_pedido (codigo_pedido, codigo_producto, cantidad, precio_unidad, numero_linea)
 VALUES
 (131, 'FR-67', 15, 70.0, 2);
@@ -74,6 +75,28 @@ INSERT INTO detalle_pedido (codigo_pedido, codigo_producto, cantidad, precio_uni
 VALUES
 (131, 'OR-127', 45, 4.0, 1);
 
+-- Ej 4
+/*
+
+*/
+
+-- Ej 5
+/*
+
+*/
+
+-- Ej 6
+/*
+
+*/
+
+-- Ej 7
+/*
+Eliminar los clientes que no hayan realizado ningún pedido. ¿Se puede? ¿Por qué?
+*/
+DELETE from cliente
+WHERE id_cliente not in (select id_cliente from pedido);
+   --Sí que se van a poder borrar porque al no haber pedidos no hay dependencias.
 -- Ej 8
 /*
 Reducir en un 20% el precio de todos los productos que no tengan
@@ -82,7 +105,8 @@ pedidos
 UPDATE producto
 set precio = precio * 0.8
 where codigo_producto not in (select codigo_producto from detalle_pedido);
--- Ej 10
+
+-- Ej 9
 /*
 Borrar los pagos del cliente con menor límite de crédito. ¿Se puede?
 */
@@ -90,7 +114,16 @@ DELETE FROM pago
 WHERE id_cliente IN
     (SELECT id_cliente FROM cliente
     WHERE limite_credito = (SELECT min(limite_credito) FROM cliente));
--- Sí que se puede borrar. 
+    -- Sí que se puede borrar.
+
+-- Ej 10
+/*
+Borrar el cliente que menor límite de crédito tenga. ¿Es posible borrarlo? ¿Por qué́?
+*/
+DELETE FROM cliente
+WHERE limite_credito = (SELECT min(limite_credito) FROM cliente);
+    -- No se puede borrar porque tiene pedidos asociados.
+
 -- Ej 11
 /*
 Añadir un campo numérico llamado IVA a la tabla detalle_pedido. Establecer el valor de ese
@@ -113,6 +146,18 @@ SET IVA = 21.00
 WHERE codigo_pedido NOT IN
     (SELECT pedido.codigo_pedido FROM pedido
     WHERE pedido.fecha_pedido < '2012-09-01');
+
+-- 12
+/*
+Añadir a la tabla detalle_pedido un nuevo campo numérico (que permita guardar dos
+decimales) llamado total_linea y actualizar todos sus registros para calcular su valor con la
+fórmula:
+total_linea = precio_unidad * cantidad * (1 + (IVA / 100));
+*/
+ALTER TABLE detalle_pedido
+ADD COLUMN total_linea decimal(10,2) default 0;
+UPDATE detalle_pedido 
+SET total_linea = precio_unidad * cantidad * (1 + (IVA / 100));
 -- 13
 /*
 Establecer a 0 el límite de crédito del cliente que menos unidades pedidas tenga (en total
