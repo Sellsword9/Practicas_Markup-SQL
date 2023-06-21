@@ -58,5 +58,80 @@ Crear un procedimiento que permita modificar los datos de una conferencia
 */
 DROP PROCEDURE IF EXISTS modConferencia;
 DELIMITER $$
-CREATE PROCEDURE modConferencia(IN xIdConferencia CHAR(7), xTema varchar(60), 
-xPrecio DECIMAL(5,2), xFecha DATE, xTurno varchar(1), xNombre varchar(50))
+CREATE PROCEDURE modConferencia(IN xIdConferencia CHAR(7), 
+xTema varchar(60), xPrecio DECIMAL(5,2), xFecha DATE 
+xTurno varchar(1), xSala varchar(50))
+BEGIN
+UPDATE conferencia
+SET tema = xTema, precio = xPrecio, 
+fecha = xFecha, turno = xTurno, 
+nombreSala = xSala
+WHERE idConferencia = xIdConferencia;
+END$$
+DELIMITER ;
+/* Inserta (y luego borra) una conferencia para ver su uso */
+INSERT conferencia VALUES ("abc1234", "Conferencia de ejemplo", 15, "2013-10-03", 'M', 'Afrodita');
+
+SELECT * FROM conferencia c
+WHERE c.idConferencia = 'abc1234';
+
+CALL modConferencia('abc1234', "Conferencia ejemplificativa", 10, "2013-10-03", 'M', 'Zeus');
+
+SELECT * FROM conferencia c
+WHERE c.idConferencia = 'abc1234';
+
+DELETE FROM conferencia
+where idConferencia = 'abc1234';
+
+-- Ej 5
+/*
+Crear un procedimiento que borre una sala por su nombre. Hacer que borre en base al patrón nombre%
+(empleando LIKE)
+*/
+DROP PROCEDURE IF EXISTS delSala;
+DELIMITER $$
+CREATE PROCEDURE delSala(IN xNombreSala varchar(50))
+BEGIN
+DELETE FROM sala WHERE nombreSala LIKE concat(xNombreSala, '%');
+END$$
+DELIMITER ;
+CALL delSala('Sala EJEM');
+
+-- Ej 6
+/*
+Crear un procedimiento al que se le pase el idPonente de un ponente y devuelva en forma de parámetro de
+salida en cuantas conferencias participa.
+*/
+DROP PROCEDURE IF EXISTS getNumConferencias;
+DELIMITER $$
+CREATE PROCEDURE getNumConferencias(IN xIdPonente CHAR(6), OUT xNumConferencias INT)
+BEGIN
+SELECT 0 INTO xNumConferencias; -- Si no encuentra ninguna conferencia, es 0
+SELECT COUNT(*) INTO xNumConferencias FROM participa WHERE idPonente = xIdPonente;
+END$$
+DELIMITER ;
+
+SET @xConfs = 0;
+CALL getNumConferencias('USA001', @xConfs);
+SELECT @xConfs;
+
+-- Ej 7
+/*
+Crear un procedimiento al que se le pase como parámetro el idPonente y devuelva en el mismo parámetro el
+nombre completo del ponente con el formato: “apellido1 apellido2, nombre”.
+*/
+DROP PROCEDURE IF EXISTS getNombreCompleto;
+DELIMITER $$
+CREATE PROCEDURE getNombreCompleto(IN xIdPonente CHAR(6), OUT xNombreCompleto VARCHAR(150))
+BEGIN
+SELECT
+CONCAT(apellido1, ifnull(CONCAT(' ', apellido2), ''), ', ', nombre)
+INTO xNombreCompleto
+FROM ponente
+WHERE idPonente = xIdPonente;
+END$$
+DELIMITER ;
+
+SET @xNombreCompleto = '';
+CALL getNombreCompleto('USA001', @xNombreCompleto);
+SELECT @xNombreCompleto;
